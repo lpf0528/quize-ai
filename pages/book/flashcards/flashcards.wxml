@@ -1,0 +1,79 @@
+<!--pages/book/flashcards/flashcards.wxml-->
+<wxs module="g" src="./gesture.wxs"></wxs>
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+  <view slot="content">记忆闪卡</view>
+</cu-custom>
+
+<view class="fc-page">
+  <!-- 进度条 -->
+  <view class="cu-bar bg-white solid-bottom">
+    <view class="action">
+      <text class="cuIcon-favorfill text-red"></text>
+      <text class="text-bold">第 {{current + 1}} / {{total}} 张</text>
+    </view>
+    <view class="action">
+      <text class="cu-tag round bg-green sm margin-right-xs">记住 {{known}}</text>
+      <text class="cu-tag round bg-red sm">没记住 {{unknown}}</text>
+    </view>
+  </view>
+
+  <!-- 卡片区 -->
+  <view class="fc-stage">
+    <view
+      class="fc-card"
+      bindtouchstart="{{g.start}}"
+      catchtouchmove="{{g.move}}"
+      bindtouchend="{{g.end}}"
+    >
+      <view class="fc-inner {{flipped ? 'is-flipped' : ''}}">
+        <!-- 正面：问题 -->
+        <view class="fc-face fc-front shadow-lg radius-lg bg-gradual-blue">
+          <view class="fc-badge">Q</view>
+          <view class="fc-text">{{current + 1}}、{{card.front}}</view>
+          <view class="fc-tip"><text class="cuIcon-move margin-right-xs"></text>点击查看答案</view>
+        </view>
+        <!-- 背面：答案 -->
+        <view class="fc-face fc-back shadow-lg radius-lg bg-white">
+          <view class="fc-badge fc-badge-a">A</view>
+          <view class="fc-text fc-text-back">{{card.back}}</view>
+          <view class="fc-tip text-grey"><text class="cuIcon-refresh margin-right-xs"></text>点击返回问题</view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+  <!-- 滑动提示 -->
+  <view class="fc-hint text-grey text-sm">
+    <text class="cuIcon-back margin-right-xs"></text>右滑上一张 · 左滑下一张
+    <text class="cuIcon-right margin-left-xs"></text>
+  </view>
+
+  <!-- 记忆按钮 -->
+  <view class="flex padding justify-between">
+    <button
+      class="cu-btn lg round shadow-blur fc-mark-btn {{currentMark=='unknown' ? 'bg-red' : 'line-red text-red'}}"
+      data-type="unknown"
+      bindtap="mark"
+    >
+      <text class="cuIcon-close margin-right-xs"></text>没记住
+    </button>
+    <button
+      class="cu-btn lg round shadow-blur fc-mark-btn {{currentMark=='known' ? 'bg-green' : 'line-green text-green'}}"
+      data-type="known"
+      bindtap="mark"
+    >
+      <text class="cuIcon-check margin-right-xs"></text>记住了
+    </button>
+  </view>
+
+  <!-- 全部完成 -->
+  <view wx:if="{{finished}}" class="padding-lr">
+    <view class="bg-white radius-lg shadow-sm padding text-center margin-bottom">
+      <view class="text-xl text-bold text-green"><text class="cuIcon-medal margin-right-xs"></text>全部学习完成！</view>
+      <view class="text-df text-grey margin-top-sm">记住 {{known}} 张 · 没记住 {{unknown}} 张</view>
+    </view>
+    <button class="cu-btn bg-blue lg block round shadow" bindtap="restart">
+      <text class="cuIcon-refresh margin-right-xs"></text>再学一遍
+    </button>
+  </view>
+</view>

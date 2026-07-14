@@ -4,6 +4,7 @@
     "pages/book/article/article",
     "pages/book/quize/quize",
     "pages/book/result/result",
+    "pages/book/flashcards/flashcards",
     "pages/index/index",
     "pages/book/toc/toc",
     "pages/book/chapter/chapter",

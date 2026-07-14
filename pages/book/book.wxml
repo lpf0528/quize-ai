@@ -70,6 +70,23 @@
             <view class="cu-tag round bg-grey sm">5</view>
           </view>
         </view>
+        <view class="cu-item">
+          <view class="cu-avatar round lg bg-white">
+            <text class="cuIcon-form"></text>
+          </view>
+          <view class="content" bind:tap="toPage" data-url="/pages/book/flashcards/flashcards">            
+          <view class="text-grey">闪卡</view>
+            <view class="text-gray text-sm flex">
+              <text class="text-cut">
+                <text class="cuIcon-time margin-right-xs"></text> 2026-06-06
+              </text>
+            </view>
+          </view>
+          <view class="action">
+            <view class="text-grey text-xs">22:20</view>
+            <view class="cu-tag round bg-grey sm">5</view>
+          </view>
+        </view>
       </view>
       <view class='padding margin text-center'>
         <view class='cu-btn bg-blue lg block shadow radius margin-xl' bindtap="showModal" data-target="viewModal">

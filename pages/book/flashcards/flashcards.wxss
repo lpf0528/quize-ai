@@ -1,0 +1,108 @@
+/* pages/book/flashcards/flashcards.wxss */
+.fc-page {
+  min-height: 100vh;
+  background-color: #f5f6f8;
+  padding-bottom: 40rpx;
+}
+
+/* 卡片舞台 */
+.fc-stage {
+  padding: 48rpx 40rpx 24rpx;
+  perspective: 1600rpx;
+}
+
+.fc-card {
+  width: 100%;
+  height: 720rpx;
+  /* transform / transition 由 gesture.wxs 在渲染层直接控制 */
+}
+
+/* 3D 翻转容器 */
+.fc-inner {
+  position: relative;
+  width: 100%;
+  height: 100%;
+  transform-style: preserve-3d;
+  transition: transform 0.5s cubic-bezier(0.4, 0.2, 0.2, 1);
+}
+.fc-inner.is-flipped {
+  transform: rotateY(180deg);
+}
+
+/* 卡面 */
+.fc-face {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  backface-visibility: hidden;
+  -webkit-backface-visibility: hidden;
+  box-sizing: border-box;
+  padding: 60rpx 48rpx;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.fc-front {
+  color: #fff;
+}
+.fc-back {
+  transform: rotateY(180deg);
+}
+
+/* Q / A 角标 */
+.fc-badge {
+  position: absolute;
+  top: 32rpx;
+  left: 36rpx;
+  width: 64rpx;
+  height: 64rpx;
+  line-height: 64rpx;
+  text-align: center;
+  border-radius: 50%;
+  font-size: 34rpx;
+  font-weight: bold;
+  background: rgba(255, 255, 255, 0.28);
+  color: #fff;
+}
+.fc-badge-a {
+  background: #f0f7ff;
+  color: #0081ff;
+}
+
+.fc-text {
+  font-size: 42rpx;
+  font-weight: bold;
+  line-height: 1.6;
+  text-align: center;
+}
+.fc-text-back {
+  font-size: 34rpx;
+  font-weight: normal;
+  color: #333;
+  line-height: 1.7;
+}
+
+.fc-tip {
+  position: absolute;
+  bottom: 40rpx;
+  left: 0;
+  width: 100%;
+  text-align: center;
+  font-size: 24rpx;
+  opacity: 0.85;
+}
+
+/* 滑动提示 */
+.fc-hint {
+  text-align: center;
+  padding: 8rpx 0 24rpx;
+}
+
+/* 记忆按钮 */
+.fc-mark-btn {
+  width: 44%;
+}

@@ -1,0 +1,73 @@
+// gesture.wxs —— 在渲染层直接处理触摸手势，避免 touchmove 高频 setData 造成卡顿
+var SWIPE = 60;      // 判定滑动的最小水平位移
+var TAP = 10;        // 判定点击的最大位移
+var MAX = 150;       // 跟手位移上限
+var LOCK_MS = 320;   // 切卡后锁定时长(ms)
+
+var startX = 0;
+var startY = 0;
+var lockUntil = 0;
+var horizontal = false;
+
+function setTransform(ins, x, withAnim) {
+  ins.setStyle({
+    transition: withAnim ? 'transform 0.25s ease' : 'none',
+    transform: 'translateX(' + x + 'px) rotate(' + (x * 0.02) + 'deg)'
+  });
+}
+
+function start(e, owner) {
+  if (e.timeStamp < lockUntil) return;
+  startX = e.touches[0].clientX;
+  startY = e.touches[0].clientY;
+  horizontal = false;
+  setTransform(e.instance, 0, false);
+}
+
+function move(e, owner) {
+  if (e.timeStamp < lockUntil) return;
+  var dx = e.touches[0].clientX - startX;
+  var dy = e.touches[0].clientY - startY;
+  if (!horizontal && Math.abs(dx) <= Math.abs(dy)) return;
+  horizontal = true;
+  var x = dx;
+  if (x > MAX) x = MAX;
+  if (x < -MAX) x = -MAX;
+  setTransform(e.instance, x, false);
+}
+
+function end(e, owner) {
+  if (e.timeStamp < lockUntil) return;
+  var dx = e.changedTouches[0].clientX - startX;
+  var dy = e.changedTouches[0].clientY - startY;
+
+  // 点击：翻面（位移很小）
+  if (Math.abs(dx) < TAP && Math.abs(dy) < TAP) {
+    setTransform(e.instance, 0, true);
+    owner.callMethod('flip');
+    return;
+  }
+
+  // 达到滑动阈值：切卡，并锁定一小段时间防止连续快滑堆积
+  if (dx <= -SWIPE) {
+    lockUntil = e.timeStamp + LOCK_MS;
+    setTransform(e.instance, 0, true);
+    owner.callMethod('next');
+    return;
+  }
+  if (dx >= SWIPE) {
+    lockUntil = e.timeStamp + LOCK_MS;
+    setTransform(e.instance, 0, true);
+    owner.callMethod('prev');
+    return;
+  }
+
+  // 位移不足，回弹
+  setTransform(e.instance, 0, true);
+}
+
+module.exports = {
+  start: start,
+  move: move,
+  end: end
+};
