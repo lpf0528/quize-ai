@@ -1,0 +1,36 @@
+---
+description: quize-ai 项目上下文：微信小程序、ColorUI GA、书籍学习/测验主流程
+alwaysApply: true
+---
+
+# quize-ai 项目上下文
+
+完整分析见 `docs/PROJECT_OVERVIEW.md`。改 UI/页面时先读该文档。
+
+## 本质
+
+微信**原生**小程序（非 uni-app）。主题是「书籍学习 + 笔记 + 测验」，示例内容为 RAG 技术书。当前多为静态原型，无后端 API。
+
+## UI：ColorUI GA（强制）
+
+- 文档：https://xiaokanglei.github.io/ColorUI-GA-Docs/#/README
+- 已在 `app.wxss` 引入 `main` / `icon` / `icon-new` / `animation` / `dark`
+- 全局 `cu-custom`；`navigationStyle: custom`
+- 用 ColorUI 类名（`cu-list`、`cu-btn`、`cuIcon-*`、`flex`、`margin-*` 等），勿另起设计系统
+
+## 主路径
+
+`pages/book/book`（详情+抽屉目录）→ `article`（towxml 渲染 MD）→ `quize`（测验，**空壳**）  
+`toc` 是组件；`chapter` 仍是音乐模板残留，待重做。
+
+## 关键依赖
+
+- **towxml**：`app.towxml(md, 'markdown', opts)` + `<towxml nodes="{{article}}" />`
+- **导航高度**：`app.globalData.StatusBar` / `CustomBar` / `Custom`（`app.js` onLaunch 计算）
+
+## 开发注意
+
+- 目录名拼写为 `quize`（非 quiz），改路由需全局一致
+- `toc` 有断链（`/pages/about/...` 不存在）与可能缺失的 `/images/bg.png`
+- Tab：`book` / `index` / `logs`；index、logs 偏脚手架/模板
+- 新功能优先落在 book 流程；长文用 towxml，不用另造 Markdown 方案

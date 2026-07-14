@@ -1,2 +1,78 @@
 <!--pages/book/quize/quize.wxml-->
-<text>pages/book/quize/quize.wxml</text>
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+  <view slot="content">RAG 技术测验</view>
+</cu-custom>
+
+<view class="quize-page">
+  <!-- 吸顶：进度 + 题干 -->
+  <view class="quize-header" style="top:{{CustomBar}}px;">
+    <!-- 进度 -->
+    <view class="cu-bar bg-white solid-bottom">
+      <view class="action">
+        <text class="cuIcon-title text-blue"></text>
+        <text class="text-bold">第 {{current + 1}} / {{total}} 题</text>
+      </view>
+      <view class="action">
+        <text class="cu-tag round {{question.type=='single'?'bg-blue':'bg-orange'}} sm">{{question.typeText}}</text>
+      </view>
+    </view>
+
+    <!-- 题干 -->
+    <view class="bg-white padding solid-bottom">
+      <view class="text-lg text-black text-bold">{{question.title}}</view>
+      <view wx:if="{{question.type=='multiple'}}" class="text-sm text-grey margin-top-xs">（可多选，选择后点击提交）</view>
+    </view>
+  </view>
+
+  <!-- 选项 -->
+  <view class="padding-sm">
+    <view
+      wx:for="{{question.options}}"
+      wx:key="key"
+      class="option-item bg-white radius-lg margin-bottom-sm shadow-sm option-{{item.status}} {{!isSubmitted && item.isSelected ? 'option-picked' : ''}}"
+      bindtap="chooseOption"
+      data-key="{{item.key}}"
+    >
+      <view class="flex align-center padding">
+        <view class="option-key {{question.type=='single'?'round':'radius'}}">{{item.key}}</view>
+        <view class="flex-sub text-df text-black">{{item.text}}</view>
+        <view wx:if="{{item.status=='right' || item.status=='correct'}}" class="cuIcon-check text-green text-xl"></view>
+        <view wx:if="{{item.status=='wrong'}}" class="cuIcon-close text-red text-xl"></view>
+      </view>
+
+      <!-- 判断提示 -->
+      <view wx:if="{{item.hint}}" class="option-hint padding-lr padding-bottom-sm">
+        <text class="text-sm {{item.status=='wrong' ? 'text-red' : 'text-green'}}">
+          <text class="{{item.status=='wrong' ? 'cuIcon-roundclose' : 'cuIcon-roundcheck'}} margin-right-xs"></text>{{item.hint}}
+        </text>
+      </view>
+
+      <!-- 解析：提交后每个选项都展示 -->
+      <view wx:if="{{isSubmitted}}" class="option-analysis bg-grey-light padding-sm">
+        <text class="text-sm text-gray"><text class="cuIcon-info text-blue margin-right-xs"></text>{{item.analysis}}</text>
+      </view>
+    </view>
+  </view>
+
+  <!-- 提交按钮 -->
+  <view wx:if="{{!isSubmitted}}" class="padding">
+    <button class="cu-btn bg-blue lg block shadow radius {{canSubmit?'':'disabled'}}" bindtap="submit">提交</button>
+  </view>
+
+  <view class="cu-tabbar-height"></view>
+</view>
+
+<!-- 上一题 / 下一题 -->
+<view class="cu-bar tabbar bg-white shadow foot">
+  <view class="action {{current==0 ? 'text-gray' : 'text-blue'}}" bindtap="prev">
+    <text class="cuIcon-back"></text>
+    <text class="text-sm">上一题</text>
+  </view>
+  <view class="action text-grey">
+    <text class="text-sm">{{current + 1}} / {{total}}</text>
+  </view>
+  <view class="action {{current==total-1 ? 'text-gray' : 'text-blue'}}" bindtap="next">
+    <text class="cuIcon-right"></text>
+    <text class="text-sm">下一题</text>
+  </view>
+</view>

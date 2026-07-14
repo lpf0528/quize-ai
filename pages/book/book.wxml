@@ -58,7 +58,7 @@
           <view class="cu-avatar round lg bg-white">
             <text class="cuIcon-form"></text>
           </view>
-          <view class="content" bind:tap="toPage" data-url="/pages/book/article/article">            <view class="text-grey">RAG技术测验</view>
+          <view class="content" bind:tap="toPage" data-url="/pages/book/quize/quize">            <view class="text-grey">RAG技术测验</view>
             <view class="text-gray text-sm flex">
               <text class="text-cut">
                 <text class="cuIcon-time margin-right-xs"></text> 2026-06-06

@@ -1,1 +1,87 @@
 /* pages/book/quize/quize.wxss */
+.quize-page {
+  min-height: 100vh;
+  padding-bottom: 100rpx;
+}
+
+/* 吸顶：进度 + 题干 */
+.quize-header {
+  position: sticky;
+  z-index: 100;
+  background-color: #fff;
+}
+
+/* 选项容器 */
+.option-item {
+  overflow: hidden;
+  border: 2rpx solid transparent;
+  transition: all 0.2s ease;
+}
+
+/* 选项序号 */
+.option-key {
+  width: 56rpx;
+  height: 56rpx;
+  line-height: 56rpx;
+  text-align: center;
+  margin-right: 24rpx;
+  background-color: #f1f1f1;
+  color: #666;
+  font-weight: bold;
+  flex-shrink: 0;
+}
+
+/* 未提交：选中态 */
+.option-picked {
+  border-color: #0081ff;
+}
+
+.option-picked .option-key {
+  background-color: #0081ff;
+  color: #fff;
+}
+
+/* 提交后：回答正确 / 正确答案 -> 绿色 */
+.option-right,
+.option-correct {
+  border-color: #39b54a;
+  background-color: #f0faf1 !important;
+}
+
+.option-right .option-key,
+.option-correct .option-key {
+  background-color: #39b54a;
+  color: #fff;
+}
+
+/* 提交后：回答错误 -> 红色 */
+.option-wrong {
+  border-color: #e54d42;
+  background-color: #fdf1f0 !important;
+}
+
+.option-wrong .option-key {
+  background-color: #e54d42;
+  color: #fff;
+}
+
+/* 解析区 */
+.bg-grey-light {
+  background-color: #f7f7f7;
+}
+
+.option-analysis {
+  border-top: 2rpx dashed #e0e0e0;
+  line-height: 1.6;
+}
+
+.option-hint {
+  line-height: 1.4;
+}
+
+/* 底部翻页：修正 ColorUI 对首个 action 图标施加的负边距导致的偏移 */
+.foot .action > text[class*="cuIcon-"] {
+  margin-left: auto !important;
+  margin-right: auto !important;
+  font-size: 40rpx;
+}
