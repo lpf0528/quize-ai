@@ -27,7 +27,7 @@
     >
       <view class="fc-inner {{flipped ? 'is-flipped' : ''}}">
         <!-- 正面：问题 -->
-        <view class="fc-face fc-front shadow-lg radius-lg bg-gradual-blue">
+        <view class="fc-face fc-front shadow-lg radius-lg {{currentMark=='known' ? 'bg-gradual-green' : (currentMark=='unknown' ? 'bg-gradual-red' : 'bg-gradual-blue')}}">
           <view class="fc-badge">Q</view>
           <view class="fc-text">{{current + 1}}、{{card.front}}</view>
           <view class="fc-tip"><text class="cuIcon-move margin-right-xs"></text>点击查看答案</view>
