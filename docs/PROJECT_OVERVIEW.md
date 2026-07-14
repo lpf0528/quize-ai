@@ -38,7 +38,8 @@ quize-ai/
 | --- | --- | --- |
 | `pages/book/book` | 书籍详情：封面、简介、笔记列表；抽屉打开目录 | **核心，Tab** |
 | `pages/book/article/article` | 笔记/文章详情（towxml 渲染 Markdown） | 可用（硬编码示例文） |
-| `pages/book/quize/quize` | 测验页 | **占位**，仅默认模板 |
+| `pages/book/quize/quize` | 测验页：单选/多选，提交即时判分 + 解析，上/下题 | 已实现（模拟数据） |
+| `pages/book/result/result` | 测验结果页：答对/答错统计 + echarts 环形图 | 已实现（模拟/query 传参） |
 | `pages/book/toc/toc` | 目录组件（非独立页，被 book 抽屉引用） | 组件 |
 | `pages/book/chapter/chapter` | 章节页（当前像音乐播放模板残留） | 半成品 |
 | `pages/index/index` | 首页：搜索 + Tab + 轮播 + 书单列表 | Tab，偏演示 |
@@ -108,7 +109,15 @@ book（书籍详情）
 
 当前仅 `article` 页使用；内容为页面内硬编码字符串，**无后端 API**。
 
-### 4.3 全局逻辑（`app.js`）
+### 4.3 echarts（图表）
+
+- 库位于 `towxml/echarts/wx-echarts.js`（echarts 库）+ `wx-canvas.js`（适配层）
+- 独立组件：`/ec-canvas/ec-canvas`（基于 [echarts-for-weixin](https://github.com/ecomfe/echarts-for-weixin)，旧版 canvas），供普通页面使用
+- 注意：`towxml/echarts` 里的同名组件与 towxml 强耦合（`attached` 读 towxml 节点），**不能**当通用 ec-canvas 用
+- 用法：页面 `import * as echarts from '../../../towxml/echarts/wx-echarts'`，`ec: { lazyLoad: true }`，`onReady` 里 `selectComponent().init(cb)` 设置 option
+- 参考：`pages/book/result/result`
+
+### 4.4 全局逻辑（`app.js`）
 
 - `onLaunch`：写本地 `logs`、调用 `wx.login`（未接后端）、计算自定义导航高度
 - `globalData`：`userInfo`、`StatusBar`、`Custom`、`CustomBar`

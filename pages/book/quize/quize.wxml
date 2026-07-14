@@ -19,8 +19,13 @@
 
     <!-- 题干 -->
     <view class="bg-white padding solid-bottom">
-      <view class="text-lg text-black text-bold">{{question.title}}</view>
-      <view wx:if="{{question.type=='multiple'}}" class="text-sm text-grey margin-top-xs">（可多选，选择后点击提交）</view>
+      <view class="flex align-center justify-between">
+        <view class="flex-sub text-lg text-black text-bold">{{question.title}}</view>
+        <view wx:if="{{isSubmitted}}" class="cu-tag round sm margin-left-sm {{question.result=='right' ? 'bg-green' : 'bg-red'}}">
+          <text class="{{question.result=='right' ? 'cuIcon-roundcheckfill' : 'cuIcon-roundclosefill'}} margin-right-xs"></text>{{question.resultText}}
+        </view>
+      </view>
+      <view wx:if="{{question.type=='multiple'}}" class="text-sm text-grey margin-top-xs">（可多选，需选全才算正确）</view>
     </view>
   </view>
 
@@ -57,6 +62,13 @@
   <!-- 提交按钮 -->
   <view wx:if="{{!isSubmitted}}" class="padding">
     <button class="cu-btn bg-blue lg block shadow radius {{canSubmit?'':'disabled'}}" bindtap="submit">提交</button>
+  </view>
+
+  <!-- 全部答完后：查看结果 -->
+  <view wx:if="{{allSubmitted}}" class="padding">
+    <button class="cu-btn bg-green lg block shadow radius" bindtap="goResult">
+      <text class="cuIcon-medal margin-right-xs"></text>查看结果
+    </button>
   </view>
 
   <view class="cu-tabbar-height"></view>

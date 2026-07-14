@@ -59,7 +59,8 @@ Page({
     selected: [],       // 各题已选项 [[..],[..]]
     submitted: [],      // 各题是否已提交
     canSubmit: false,   // 当前题是否可提交
-    isSubmitted: false  // 当前题是否已提交
+    isSubmitted: false, // 当前题是否已提交
+    allSubmitted: false // 是否所有题都已提交
   },
 
   onLoad() {
@@ -74,6 +75,8 @@ Page({
     const q = QUESTIONS[current];
     const picked = selected[current] || [];
     const isSubmitted = submitted[current];
+    // 整题是否答对：所选与正确答案完全一致（多选少选/多选都算错）
+    const qRight = isSubmitted && this.checkRight(picked, q.answer);
 
     const options = q.options.map(opt => {
       const isSelected = picked.indexOf(opt.key) > -1;
@@ -83,13 +86,14 @@ Page({
       if (isSubmitted) {
         if (isSelected && isCorrect) {
           status = 'right';
-          hint = '回答正确';
+          // 整题答对才提示“回答正确”；否则（如多选少选）只标为正确选项
+          hint = qRight ? '回答正确' : '正确选项';
         } else if (isSelected && !isCorrect) {
           status = 'wrong';
           hint = '不太对';
         } else if (!isSelected && isCorrect) {
           status = 'correct';
-          hint = '正确答案';
+          hint = q.type === 'multiple' ? '漏选的正确答案' : '正确答案';
         }
       }
       return {
@@ -107,10 +111,39 @@ Page({
         type: q.type,
         typeText: q.type === 'single' ? '单选题' : '多选题',
         title: q.title,
-        options
+        options,
+        result: isSubmitted ? (qRight ? 'right' : 'wrong') : '',
+        resultText: isSubmitted ? (qRight ? '回答正确' : '回答错误') : ''
       },
       canSubmit: picked.length > 0,
-      isSubmitted
+      isSubmitted,
+      allSubmitted: this.data.submitted.every(Boolean)
+    });
+  },
+
+  // 集合完全相等判定：数量一致且每个正确答案都被选中
+  checkRight(picked, answer) {
+    if (picked.length !== answer.length) return false;
+    return answer.every(k => picked.indexOf(k) > -1);
+  },
+
+  // 判断某题是否答对
+  isRight(index) {
+    return this.checkRight(this.data.selected[index] || [], QUESTIONS[index].answer);
+  },
+
+  // 跳转结果页，带上统计
+  goResult() {
+    const total = this.data.total;
+    let correct = 0;
+    let wrong = 0;
+    this.data.submitted.forEach((done, i) => {
+      if (!done) return;
+      if (this.isRight(i)) correct++;
+      else wrong++;
+    });
+    wx.navigateTo({
+      url: `/pages/book/result/result?total=${total}&correct=${correct}&wrong=${wrong}`
     });
   },
 

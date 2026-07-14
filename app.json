@@ -3,6 +3,7 @@
     "pages/book/book",
     "pages/book/article/article",
     "pages/book/quize/quize",
+    "pages/book/result/result",
     "pages/index/index",
     "pages/book/toc/toc",
     "pages/book/chapter/chapter",
