@@ -1,0 +1,13 @@
+<!--pages/template/news/news03/news03.wxml-->
+<cu-custom bgColor="bg-white" isBack="{{true}}">
+  <view slot="content">xxx</view>
+</cu-custom>
+
+<view class="cu-timeline margin-xs radius-lg">
+  <view class="padding-xs text-center">
+    <text class="text-xxl text-bold text-black">RAG架构演进与知识增强核心范式</text>
+  </view>
+  <view class="padding-xs">
+    <towxml nodes="{{article}}" />
+  </view>
+</view>

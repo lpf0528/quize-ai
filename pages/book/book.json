@@ -1,0 +1,5 @@
+{
+  "usingComponents": {
+    "bookToc":"/pages/book/toc/toc"
+  }
+}

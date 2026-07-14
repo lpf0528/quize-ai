@@ -1,0 +1,64 @@
+<!-- 背景图 -->
+<image src='/images/bg.png' mode='widthFix' class='bg-img-new'></image>
+
+<scroll-view scroll-y class="scrollPage">
+  <view class="UCenter-bg">
+    <!-- <image src="/images/tabbar/basics_cur.png" class="png" mode="widthFix"></image>
+    <view class="text-xl text-orange text-blod">ColorUI GA
+      <text class="text-df">v2.1.1</text>
+    </view>
+    <text class="margin-top-sm text-orange">By: L.</text>
+    <text class="margin-top-sm text-gray">最近更新：2023/2/5</text> -->
+  </view>
+  <view class="cu-list menu card-menu sm-border margin-top margin-bottom-xl shadow radius-lg">
+    <view class="cu-item arrow" bindtap="toPage" data-url="/pages/book/chapter/chapter">
+      <view class="content flex">
+        <view class="cu-avatar sm round margin-right bg-blue">1</view>
+        <text>模型与Prompt</text>
+      </view>
+    </view>
+    <view class="cu-item arrow" bindtap="toPage" data-url="/pages/about/log/log">
+      <view class="content">
+        <text class="cuIcon-formfill text-blue"></text>
+        <text>数据加载与分割</text>
+      </view>
+    </view>
+    <view class="cu-item arrow" bindtap="toPage" data-url="/pages/about/appreciate/appreciate">
+      <view class="content">
+        <text class="cuIcon-wefill text-red"></text>
+        <text>数据嵌入与索引</text>
+      </view>
+    </view>
+    <view class="cu-item" bindtap="CopyText" data-link="https://github.com/XiaokangLei/ColorUI-GA">
+      <view class="content">
+        <text class="cuIcon-github text-black"></text>
+        <text>检索、响应生成与RAG引擎</text>
+      </view>
+      <view class="cuIcon-copy text-blue"></view>
+    </view>
+    <view class="cu-item" bindtap="CopyText" data-link="https://one.x-artspace.cn/ColorUI-GA-Docs">
+      <view class="content">
+        <text class="cuIcon-link text-green"></text>
+        <text>RAG引擎高级开发</text>
+      </view>
+      <view class="cuIcon-copy text-blue"></view>
+    </view>
+  </view>
+
+  <view class="cu-list menu card-menu sm-border margin-top-sm shadow-lg">
+    <!-- 联系作者 -->
+    <view class="cu-item">
+      <button class='cu-btn content' open-type='contact'>
+        <text class='cuIcon-service text-orange text-xl'></text>
+        <text class='text-l text-black'>开发Data Agent</text>
+      </button>
+    </view>
+    <view class="cu-item">
+      <button class='cu-btn content' open-type='feedback'>
+        <text class='cuIcon-write text-cyan text-xl'></text>
+        <text class='text-l text-black'>评估ARG应用</text>
+      </button>
+    </view>
+  </view>
+  <view class="cu-tabbar-height"></view>
+</scroll-view>

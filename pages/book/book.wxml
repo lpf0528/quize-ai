@@ -1,0 +1,89 @@
+<scroll-view scroll-y class="cu-drawer-page {{modalName=='viewModal'?'show':''}}">
+  <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+    <view slot="content">全屏抽屉</view>
+  </cu-custom>
+
+
+  <view class="">
+    <view class="bg-white radius-lg" style="min-height: 90vh;">
+      <view class="flex margin-lr-sm padding-tb justify-start">
+        <view class="bg-img radius margin-lr-xs" style="background-image: url('https://image.meiye.art/pic_CYD_28h6ew2rYJFmR9Neh?imageMogr2/thumbnail/450x/interlace/1');height: 230rpx; width: 160rpx;">
+        </view>
+        <view class="text-black margin-left-sm" style="width: 480rpx;">
+          <!-- <view class="text-right">
+            <view class="cu-avatar round bg-black">書</view>
+          </view> -->
+          <view class="text-left margin-top-sm">
+            <text class="text-xl text-black text-bold">基于大模型的 RAG 应用开发与优化 : 构建企业级 LLM 应用</text>
+          </view>
+          <view class="text-left margin-top-xs">
+            <text class="text-black">严灿平著. -- 北京 : 电子工业出版社, 2024.</text>
+          </view>
+        </view>
+      </view>
+      <view class="cu-bar bg-white solid-bottom">
+        <view class="action">
+          <text class="cuIcon-titles text-blue "></text> 简介
+        </view>
+      </view>
+      <view class="bg-white radius-df margin-sm padding-xs flex">
+        <view class="piano-text {{summary_show?'piano-ative':''}}">
+          <label class="piano-btn {{summary_show?'piano-ative_label':''}} text-white radius bg-blue padding-lr-xs text-sm margin-left-sm" bindtap="summaryShowChange"></label>
+          作者严灿平系统性地介绍了检索增强生成（RAG）技术，将其划分为建立基本认知的预备篇、掌握核心模块的基础篇，以及攻克企业级优化难题的高级篇。文中强调，虽然大模型具备卓越的推理能力，却面临知识滞后、不确定性及“幻觉”现象等严峻挑战，尤其在处理企业私有数据时表现不足。为此，本书以 Python 语言和 LlamaIndex 框架为核心工具，深入探讨如何通过引入外部知识检索来构建更具时效性、可靠性与准确性的工业级 AI 应用。其核心目标是帮助读者跨越从简单的原型演示到复杂的生产就绪型架构之间的鸿沟，从而实现生成式 AI 在垂直领域的深度落地。
+        </view>
+      </view>
+      <view class="cu-bar bg-white solid-bottom">
+        <view class="action">
+          <text class="cuIcon-titles text-blue "></text> 笔记
+        </view>
+      </view>
+      <view class="cu-list menu-avatar">
+        <view class="cu-item">
+          <view class="cu-avatar round lg bg-white">
+            <text class="cuIcon-card"></text>
+          </view>
+          <view class="content" bind:tap="toPage" data-url="/pages/book/article/article">            <view class="text-grey">RAG架构演进与知识增强核心范式</view>
+            <view class="text-gray text-sm flex">
+              <text class="text-cut">
+                <text class="cuIcon-time margin-right-xs"></text> 2026-06-06
+              </text>
+            </view>
+          </view>
+          <view class="action">
+            <view class="text-grey text-xs">22:20</view>
+            <view class="cu-tag round bg-grey sm">5</view>
+          </view>
+        </view>
+        <view class="cu-item">
+          <view class="cu-avatar round lg bg-white">
+            <text class="cuIcon-form"></text>
+          </view>
+          <view class="content" bind:tap="toPage" data-url="/pages/book/article/article">            <view class="text-grey">RAG技术测验</view>
+            <view class="text-gray text-sm flex">
+              <text class="text-cut">
+                <text class="cuIcon-time margin-right-xs"></text> 2026-06-06
+              </text>
+            </view>
+          </view>
+          <view class="action">
+            <view class="text-grey text-xs">22:20</view>
+            <view class="cu-tag round bg-grey sm">5</view>
+          </view>
+        </view>
+      </view>
+      <view class='padding margin text-center'>
+        <view class='cu-btn bg-blue lg block shadow radius margin-xl' bindtap="showModal" data-target="viewModal">
+          打开抽屉
+        </view>
+      </view>
+    </view>
+  </view>
+</scroll-view>
+
+<view class="cu-drawer-close {{modalName=='viewModal'?'show':''}}" bindtap="hideModal">
+  <text class="cuIcon-pullright"></text>
+</view>
+
+<scroll-view scroll-y class="cu-drawer-window {{modalName=='viewModal'?'show':''}}">
+  <bookToc></bookToc>
+</scroll-view>

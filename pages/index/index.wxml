@@ -1,27 +1,104 @@
-<!--index.wxml-->
-<scroll-view class="scrollarea" scroll-y type="list">
-  <view class="container">
-    <view class="userinfo">
-      <block wx:if="{{canIUseNicknameComp && !hasUserInfo}}">
-        <button class="avatar-wrapper" open-type="chooseAvatar" bind:chooseavatar="onChooseAvatar">
-          <image class="avatar" src="{{userInfo.avatarUrl}}"></image>
-        </button>
-        <view class="nickname-wrapper">
-          <text class="nickname-label">昵称</text>
-          <input type="nickname" class="nickname-input" placeholder="请输入昵称" bind:change="onInputChange" />
+<cu-custom bgColor="bg-gradual-blue">
+  <!-- <view slot="backText">返回</view> -->
+  <view slot="content">首页</view>
+</cu-custom>
+<view class="">
+  <view class="bg-white">
+    <!-- 搜索 -->
+    <view class="box-serach">
+      <view class="cu-bar search bg-white radius-lg">
+        <view class="flex padding-left-sm text-xxl text-black"><text class="cuIcon-form"></text></view>
+        <view class="search-form round text-center">
+          <text class="cuIcon-search"></text>
+          <input type="text" placeholder="大家都在搜：Agent" confirm-type="search"></input>
         </view>
-      </block>
-      <block wx:elif="{{!hasUserInfo}}">
-        <button wx:if="{{canIUseGetUserProfile}}" bindtap="getUserProfile"> 获取头像昵称 </button>
-        <view wx:else> 请使用2.10.4及以上版本基础库 </view>
-      </block>
-      <block wx:else>
-        <image bindtap="bindViewTap" class="userinfo-avatar" src="{{userInfo.avatarUrl}}" mode="cover"></image>
-        <text class="userinfo-nickname">{{userInfo.nickName}}</text>
-      </block>
+      </view>
     </view>
-    <view class="usermotto">
-      <text class="user-motto">{{motto}}</text>
+    <scroll-view scroll-x class="bg-white nav">
+      <view class="flex text-center">
+        <view class="cu-item flex-sub {{index==TabCur?'text-blue cur text-bold':''}}" wx:for="{{tabList}}" wx:key="item" bindtap="tabSelect" data-id="{{item.id}}">
+          {{item.name}}
+        </view>
+      </view>
+    </scroll-view>
+
+    <swiper class="screen-swiper margin-xm round-dot" indicator-dots="true" circular="true" autoplay="true" interval="5000" duration="500">
+      <swiper-item wx:for="{{swiperList}}" wx:key="item">
+        <view class="bg-white radius-lg">
+          <view class="bg-img bg-mask padding-sm margin-sm radius-lg" style="background-image: url('https://image.meiye.art/FlqKg5bugFQD5Qzm_QhGM7ET4Mtx?imageMogr2/thumbnail/450x/interlace/1');height: 360rpx;">
+            <view class="padding-sm text-white">
+              <view class="padding-xs text-xl">
+                《要领》校长的领导力讲义
+              </view>
+              <view class="padding-xs padding-left">
+                杨斌教授亲自献声译者序
+              </view>
+              <view class="flex align-end padding-xs padding-left justify-end padding-top-xxl">
+                <view class="bg-yellow light padding-xs margin-xs radius">
+                  <text class="text-brown">免费学习》》</text>
+                </view>
+              </view>
+            </view>
+          </view>
+        </view>
+      </swiper-item>
+    </swiper>
+    <view class="flex margin-lr-sm padding-tb justify-start">
+      <view class="bg-img radius margin-lr-xs" style="background-image: url('https://image.meiye.art/pic_CYD_28h6ew2rYJFmR9Neh?imageMogr2/thumbnail/450x/interlace/1');height: 220rpx; width: 160rpx;">
+      </view>
+      <view class="text-black margin-left-sm" style="width: 420rpx;">
+        <view class="text-left margin-top-sm">
+          <text class="text-lg text-black text-bold">《心智与阅读》有声书</text>
+        </view>
+        <view class="text-left margin-top-xs">
+          <text class="text-black">著名教育与心理学家教你如何提升阅读能力</text>
+        </view>
+        <view class="text-left margin-top-sm">
+          <text class="text-black">49.99点/会员价 29.99点</text>
+        </view>
+      </view>
+      <view class="margin-left-sm text-xl flex justify-center align-center" style="width: 40rpx;">
+        <view class="cuIcon-right"></view>
+      </view>
     </view>
+
+    <view class="flex margin-lr-sm padding-tb justify-start">
+      <view class="bg-img radius margin-lr-xs" style="background-image: url('https://image.meiye.art/pic_qjTGt13__1CvXWJxOo3Z7?imageMogr2/thumbnail/450x/interlace/1');height: 220rpx; width: 160rpx;">
+      </view>
+      <view class="text-black margin-left-sm" style="width: 420rpx;">
+        <view class="text-left margin-top-sm">
+          <text class="text-lg text-black text-bold">《几度成功》有声书</text>
+        </view>
+        <view class="text-left margin-top-xs">
+          <text class="text-black">科学研究揭示高绩效团队的3个终极密码</text>
+        </view>
+        <view class="text-left margin-top-sm">
+          <text class="text-black">49.99点/会员价 29.99点</text>
+        </view>
+      </view>
+      <view class="margin-left-sm text-xl flex justify-center align-center" style="width: 40rpx;">
+        <view class="cuIcon-right"></view>
+      </view>
+    </view>
+
+    <view class="flex margin-lr-sm padding-tb justify-start">
+      <view class="bg-img radius margin-lr-xs" style="background-image: url('https://image.meiye.art/pic_1uwlbRtyrU6opIfZs69-O?imageMogr2/thumbnail/450x/interlace/1');height: 220rpx; width: 160rpx;">
+      </view>
+      <view class="text-black margin-left-sm" style="width: 420rpx;">
+        <view class="text-left margin-top-sm">
+          <text class="text-lg text-black text-bold">《打造最优工作节奏》有声书</text>
+        </view>
+        <view class="text-left margin-top-xs">
+          <text class="text-black">利用大脑天行高效工作</text>
+        </view>
+        <view class="text-left margin-top-sm">
+          <text class="text-black">49.99点/会员价 29.99点</text>
+        </view>
+      </view>
+      <view class="margin-left-sm text-xl flex justify-center align-center" style="width: 40rpx;">
+        <view class="cuIcon-right"></view>
+      </view>
+    </view>
+
   </view>
-</scroll-view>
+</view>

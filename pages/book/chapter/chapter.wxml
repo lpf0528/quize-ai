@@ -1,0 +1,30 @@
+<!--pages/template/music/music01/music01.wxml-->
+<cu-custom bgColor="bg-white" isBack="{{true}}">
+  <view slot="content">音乐播放01模板</view>
+</cu-custom>
+
+<view class="scrollPage margin-xs radius-lg">
+  <view class="radius-lg">
+    <view class="bg-white padding-bottom radius-xl">
+      <view style="padding-top:10rpx">
+        <view class="padding margin-lr margin-top-lg">
+          <view class="flex">
+            <view class="text-black padding-right-xs">1:20</view>
+            <view class="cu-progress round margin-top-xs xs">
+              <view class="bg-grey" style="width:25%;"></view>
+            </view>
+            <view class="text-black padding-left-xs">5:00</view>
+          </view>
+        </view>
+        <view class="margin-top">
+          <view class="flex justify-center">
+            <view class="margin-right text-xxxl text-black flex align-center"><text class="cuIcon-backwardfill"></text></view>
+            <view class="cu-avatar lg round margin-lr-xl bg-oc-gray-9"><text class="cuIcon-playfill text-brown"></text></view>
+            <view class="margin-left text-xxxl text-black flex align-center"><text class="cuIcon-play_forward_fill"></text></view>
+          </view>
+        </view>
+      </view>
+    </view>
+  </view>
+
+</view>
