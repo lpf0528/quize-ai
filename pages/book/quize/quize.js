@@ -16,7 +16,7 @@ const QUESTIONS = [
   },
   {
     type: 'multiple',
-    title: 'RAG 架构演进经历了哪些阶段？（多选）',
+    title: 'RAG 架构演进经历了哪些阶段？',
     options: [
       { key: 'A', text: 'Naive RAG（经典 RAG）', analysis: '正确。仅含索引、检索与生成的基础顺序流程。' },
       { key: 'B', text: 'Advanced RAG（高级 RAG）', analysis: '正确。增加了检索前处理（查询转换）与检索后处理（重排序）。' },
@@ -60,13 +60,43 @@ Page({
     submitted: [],      // 各题是否已提交
     canSubmit: false,   // 当前题是否可提交
     isSubmitted: false, // 当前题是否已提交
-    allSubmitted: false // 是否所有题都已提交
+    allSubmitted: false, // 是否所有题都已提交
+    elapsed: 0,         // 已用秒数
+    timeText: '00:00'   // 计时器展示文本
   },
 
   onLoad() {
     const selected = QUESTIONS.map(() => []);
     const submitted = QUESTIONS.map(() => false);
     this.setData({ selected, submitted }, () => this.refresh());
+    this.startTimer();
+  },
+
+  onUnload() {
+    this.stopTimer();
+  },
+
+  // 启动计时器：每秒累加并刷新展示
+  startTimer() {
+    this.stopTimer();
+    this._timer = setInterval(() => {
+      const elapsed = this.data.elapsed + 1;
+      this.setData({ elapsed, timeText: this.formatTime(elapsed) });
+    }, 1000);
+  },
+
+  stopTimer() {
+    if (this._timer) {
+      clearInterval(this._timer);
+      this._timer = null;
+    }
+  },
+
+  // 秒数格式化为 mm:ss
+  formatTime(s) {
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return (m < 10 ? '0' + m : m) + ':' + (sec < 10 ? '0' + sec : sec);
   },
 
   // 根据当前 index / 选择 / 提交状态，构建题目展示视图
@@ -134,6 +164,7 @@ Page({
 
   // 跳转结果页，带上统计
   goResult() {
+    this.stopTimer();
     const total = this.data.total;
     let correct = 0;
     let wrong = 0;
@@ -176,6 +207,29 @@ Page({
     if (!canSubmit || submitted[current]) return;
     submitted[current] = true;
     this.setData({ submitted }, () => this.refresh());
+  },
+
+  // 记录触摸起点，用于左右滑动切题
+  onTouchStart(e) {
+    const t = e.touches[0];
+    this._touchStartX = t.clientX;
+    this._touchStartY = t.clientY;
+  },
+
+  // 松手时判定：水平位移足够且大于垂直位移才切题
+  onTouchEnd(e) {
+    if (this._touchStartX == null) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - this._touchStartX;
+    const dy = t.clientY - this._touchStartY;
+    this._touchStartX = null;
+    const SWIPE = 60; // 判定滑动的最小水平位移
+    if (Math.abs(dx) < SWIPE || Math.abs(dx) <= Math.abs(dy)) return;
+    if (dx < 0) {
+      this.next(); // 左滑：下一题
+    } else {
+      this.prev(); // 右滑：上一题
+    }
   },
 
   prev() {

@@ -3,27 +3,28 @@
   <view slot="content">RAG 技术测验</view>
 </cu-custom>
 
-<view class="quize-page">
+<view class="quize-page" bindtouchstart="onTouchStart" bindtouchend="onTouchEnd">
   <!-- 吸顶：进度 + 题干 -->
   <view class="quize-header" style="top:{{CustomBar}}px;">
     <!-- 进度 -->
-    <view class="cu-bar bg-white solid-bottom">
+    <view class="cu-bar bg-white">
       <view class="action">
         <text class="cuIcon-title text-blue"></text>
         <text class="text-bold">第 {{current + 1}} / {{total}} 题</text>
       </view>
-      <view class="action">
-        <text class="cu-tag round {{question.type=='single'?'bg-blue':'bg-orange'}} sm">{{question.typeText}}</text>
+      <view class="action text-grey">
+        <text class="cuIcon-time margin-right-xs"></text>{{timeText}}
       </view>
     </view>
-
+    <view class="bg-white padding-lr">
+      <view class="cu-progress round sm">
+        <view class="bg-blue" style="width:{{(current + 1) / total * 100}}%;"></view>
+      </view>
+    </view>
     <!-- 题干 -->
     <view class="bg-white padding solid-bottom">
       <view class="flex align-center justify-between">
-        <view class="flex-sub text-lg text-black text-bold">{{question.title}}</view>
-        <view wx:if="{{isSubmitted}}" class="cu-tag round sm margin-left-sm {{question.result=='right' ? 'bg-green' : 'bg-red'}}">
-          <text class="{{question.result=='right' ? 'cuIcon-roundcheckfill' : 'cuIcon-roundclosefill'}} margin-right-xs"></text>{{question.resultText}}
-        </view>
+        <view class="flex-sub text-lg text-black text-bold">{{question.title}}<text class="cu-tag round {{question.type=='single'?'bg-blue':'bg-orange'}} sm margin-left-xs">{{question.typeText}}</text></view>
       </view>
       <view wx:if="{{question.type=='multiple'}}" class="text-sm text-grey margin-top-xs">（可多选，需选全才算正确）</view>
     </view>
@@ -71,20 +72,8 @@
     </button>
   </view>
 
-  <view class="cu-tabbar-height"></view>
-</view>
-
-<!-- 上一题 / 下一题 -->
-<view class="cu-bar tabbar bg-white shadow foot">
-  <view class="action {{current==0 ? 'text-gray' : 'text-blue'}}" bindtap="prev">
-    <text class="cuIcon-back"></text>
-    <text class="text-sm">上一题</text>
-  </view>
-  <view class="action text-grey">
-    <text class="text-sm">{{current + 1}} / {{total}}</text>
-  </view>
-  <view class="action {{current==total-1 ? 'text-gray' : 'text-blue'}}" bindtap="next">
-    <text class="cuIcon-right"></text>
-    <text class="text-sm">下一题</text>
+  <!-- 滑动提示 -->
+  <view class="text-center text-sm text-grey padding-bottom">
+    <text class="cuIcon-back margin-right-xs"></text>右滑上一题 · 左滑下一题<text class="cuIcon-right margin-left-xs"></text>
   </view>
 </view>

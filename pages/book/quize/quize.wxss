@@ -78,10 +78,3 @@
 .option-hint {
   line-height: 1.4;
 }
-
-/* 底部翻页：修正 ColorUI 对首个 action 图标施加的负边距导致的偏移 */
-.foot .action > text[class*="cuIcon-"] {
-  margin-left: auto !important;
-  margin-right: auto !important;
-  font-size: 40rpx;
-}
