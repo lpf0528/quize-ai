@@ -4,20 +4,8 @@
 </cu-custom>
 
 <view class="result-page">
-  <!-- 顶部评价 -->
-  <view class="bg-gradual-blue padding-lg text-center text-white">
-    <view class="text-xxl text-bold">{{rate}} 分</view>
-    <view class="margin-top-xs text-df">{{level}}</view>
-  </view>
-
   <!-- 环形图 -->
   <view class="bg-white radius-lg margin shadow-sm padding-tb">
-    <view class="cu-bar solid-bottom">
-      <view class="action">
-        <text class="cuIcon-pic text-blue"></text>
-        <text class="text-bold">答题分布</text>
-      </view>
-    </view>
     <view class="chart-wrap">
       <ec-canvas id="result-chart" canvas-id="result-chart" ec="{{ ec }}"></ec-canvas>
     </view>
@@ -36,9 +24,9 @@
       <view class="text-sm text-gray">答错</view>
     </view>
     <view class="flex-sub bg-white radius-lg margin-xs shadow-sm padding-tb">
-      <view class="cuIcon-list text-blue stat-icon"></view>
-      <view class="text-xxl text-blue text-bold">{{total}}</view>
-      <view class="text-sm text-gray">总题数</view>
+      <view class="cuIcon-time text-blue stat-icon"></view>
+      <view class="text-xxl text-blue text-bold">{{timeText}}</view>
+      <view class="text-sm text-gray">用时</view>
     </view>
   </view>
 
@@ -51,20 +39,9 @@
     <text class="text-xl text-orange text-bold">{{unanswered}} 题</text>
   </view>
 
-  <!-- 正确率进度条 -->
-  <view class="bg-white radius-lg margin shadow-sm padding">
-    <view class="flex justify-between margin-bottom-sm">
-      <text class="text-df text-black">正确率</text>
-      <text class="text-df text-green text-bold">{{rate}}%</text>
-    </view>
-    <view class="cu-progress round striped active">
-      <view class="bg-green" style="width:{{rate}}%;"></view>
-    </view>
-  </view>
-
   <!-- 操作按钮 -->
-  <view class="padding flex flex-direction">
-    <button class="cu-btn bg-blue lg block shadow radius margin-bottom-sm" bindtap="retry">重新测验</button>
+  <view class="padding">
+    <button class="cu-btn bg-blue lg block shadow radius margin-bottom" bindtap="retry">再测一次</button>
     <button class="cu-btn line-blue lg block radius" bindtap="backBook">返回书籍</button>
   </view>
 

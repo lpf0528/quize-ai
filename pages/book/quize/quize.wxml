@@ -18,7 +18,7 @@
     </view>
     <view class="bg-white padding-lr">
       <view class="cu-progress round sm">
-        <view class="bg-blue" style="width:{{(current + 1) / total * 100}}%;"></view>
+        <view class="bg-blue" style="width:{{answeredCount / total * 100}}%;"></view>
       </view>
     </view>
     <!-- 题干 -->
@@ -65,15 +65,57 @@
     <button class="cu-btn bg-blue lg block shadow radius {{canSubmit?'':'disabled'}}" bindtap="submit">提交</button>
   </view>
 
-  <!-- 全部答完后：查看结果 -->
-  <view wx:if="{{allSubmitted}}" class="padding">
-    <button class="cu-btn bg-green lg block shadow radius" bindtap="goResult">
-      <text class="cuIcon-medal margin-right-xs"></text>查看结果
-    </button>
-  </view>
-
   <!-- 滑动提示 -->
   <view class="text-center text-sm text-grey padding-bottom">
     <text class="cuIcon-back margin-right-xs"></text>右滑上一题 · 左滑下一题<text class="cuIcon-right margin-left-xs"></text>
+  </view>
+</view>
+
+<!-- 悬浮查看结果按钮：全部答完后展示在右侧中间 -->
+<view wx:if="{{allSubmitted}}" class="result-fab bg-gradual-green shadow-lg" bindtap="goResult">
+  <text class="cuIcon-medal"></text>
+  <view class="text-xs">查看结果</view>
+</view>
+
+<!-- 悬浮答题卡按钮：可拖动 -->
+<view
+  class="answer-fab bg-gradual-blue shadow-lg {{fabDragging ? '' : 'answer-fab-anim'}}"
+  style="left:{{fabX}}px; top:{{fabY}}px;"
+  catchtouchstart="onFabTouchStart"
+  catchtouchmove="onFabTouchMove"
+  catchtouchend="onFabTouchEnd"
+>
+  <text class="cuIcon-list"></text>
+  <view class="text-xs">答题卡</view>
+</view>
+
+<!-- 答题卡弹窗 -->
+<view class="cu-modal {{showCard ? 'show' : ''}}" bindtap="closeCard">
+  <view class="cu-dialog" catchtap>
+    <view class="cu-bar bg-white justify-end">
+      <view class="content text-bold">答题卡</view>
+      <view class="action text-blue" bindtap="closeCard">
+        <text class="cuIcon-close"></text>
+      </view>
+    </view>
+    <view class="padding bg-white">
+      <view class="answer-grid">
+        <view
+          wx:for="{{cardItems}}"
+          wx:key="index"
+          class="answer-cell {{item.answered ? 'answered' : 'unanswered'}} {{item.index == current ? 'current' : ''}}"
+          bindtap="jumpTo"
+          data-index="{{item.index}}"
+        >{{item.index + 1}}</view>
+      </view>
+      <view class="flex justify-center align-center margin-top text-sm text-grey">
+        <view class="flex align-center margin-right">
+          <view class="legend-dot answered"></view>已作答
+        </view>
+        <view class="flex align-center">
+          <view class="legend-dot unanswered"></view>未作答
+        </view>
+      </view>
+    </view>
   </view>
 </view>

@@ -23,11 +23,25 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/book/article/article",
-          "pathName": "pages/book/article/article",
+          "name": "pages/book/quize/quize",
+          "pathName": "pages/book/quize/quize",
           "query": "",
           "scene": null,
           "launchMode": "default"
+        },
+        {
+          "name": "pages/book/result/result",
+          "pathName": "pages/book/result/result",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
+        },
+        {
+          "name": "pages/book/article/article",
+          "pathName": "pages/book/article/article",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "pages/book/chapter/chapter",

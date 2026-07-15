@@ -55,6 +55,7 @@ Page({
     CustomBar: app.globalData.CustomBar,
     total: QUESTIONS.length,
     current: 0,
+    answeredCount: 0,   // 已选择题目数量
     question: null,     // 当前题目视图对象
     selected: [],       // 各题已选项 [[..],[..]]
     submitted: [],      // 各题是否已提交
@@ -62,14 +63,35 @@ Page({
     isSubmitted: false, // 当前题是否已提交
     allSubmitted: false, // 是否所有题都已提交
     elapsed: 0,         // 已用秒数
-    timeText: '00:00'   // 计时器展示文本
+    timeText: '00:00',  // 计时器展示文本
+    // 悬浮答题卡按钮
+    fabX: 0,            // 按钮左上角 x（px）
+    fabY: 0,            // 按钮左上角 y（px）
+    fabDragging: false, // 是否正在拖动
+    showCard: false,    // 答题卡弹窗是否展示
+    cardItems: []       // 答题卡各题状态
   },
 
   onLoad() {
     const selected = QUESTIONS.map(() => []);
     const submitted = QUESTIONS.map(() => false);
     this.setData({ selected, submitted }, () => this.refresh());
+    this.initFab();
     this.startTimer();
+  },
+
+  // 初始化悬浮按钮位置：默认右下角靠上一点
+  initFab() {
+    const info = wx.getSystemInfoSync();
+    const fabSize = 50; // 与 wxss 中 100rpx 对应，px 约按 2rpx=1px 估算
+    const margin = 16;
+    this.setData({
+      fabX: info.windowWidth - fabSize - margin,
+      fabY: info.windowHeight - fabSize - margin - 120
+    });
+    this._fabSize = fabSize;
+    this._winW = info.windowWidth;
+    this._winH = info.windowHeight;
   },
 
   onUnload() {
@@ -147,7 +169,8 @@ Page({
       },
       canSubmit: picked.length > 0,
       isSubmitted,
-      allSubmitted: this.data.submitted.every(Boolean)
+      allSubmitted: this.data.submitted.every(Boolean),
+      answeredCount: selected.filter(s => (s || []).length > 0).length
     });
   },
 
@@ -174,7 +197,7 @@ Page({
       else wrong++;
     });
     wx.navigateTo({
-      url: `/pages/book/result/result?total=${total}&correct=${correct}&wrong=${wrong}`
+      url: `/pages/book/result/result?total=${total}&correct=${correct}&wrong=${wrong}&elapsed=${this.data.elapsed}`
     });
   },
 
@@ -251,5 +274,63 @@ Page({
   // 切题后回到顶部，让选项完整展示
   scrollToTop() {
     wx.pageScrollTo({ scrollTop: 0, duration: 200 });
+  },
+
+  // ===== 悬浮答题卡按钮拖动 =====
+  onFabTouchStart(e) {
+    const t = e.touches[0];
+    this._fabMoved = false;
+    this._fabStartX = t.clientX;
+    this._fabStartY = t.clientY;
+    this._fabOffX = t.clientX - this.data.fabX;
+    this._fabOffY = t.clientY - this.data.fabY;
+    this.setData({ fabDragging: true });
+  },
+
+  onFabTouchMove(e) {
+    const t = e.touches[0];
+    if (Math.abs(t.clientX - this._fabStartX) > 5 || Math.abs(t.clientY - this._fabStartY) > 5) {
+      this._fabMoved = true;
+    }
+    const size = this._fabSize || 50;
+    let x = t.clientX - this._fabOffX;
+    let y = t.clientY - this._fabOffY;
+    // 限制在屏幕范围内
+    x = Math.max(0, Math.min(x, (this._winW || 0) - size));
+    y = Math.max(0, Math.min(y, (this._winH || 0) - size));
+    this.setData({ fabX: x, fabY: y });
+  },
+
+  onFabTouchEnd() {
+    this.setData({ fabDragging: false });
+    // 吸附到最近的左右边缘
+    const size = this._fabSize || 50;
+    const margin = 16;
+    const x = this.data.fabX + size / 2 < (this._winW || 0) / 2
+      ? margin
+      : (this._winW || 0) - size - margin;
+    this.setData({ fabX: x });
+    if (!this._fabMoved) this.openCard();
+  },
+
+  // ===== 答题卡弹窗 =====
+  openCard() {
+    const cardItems = QUESTIONS.map((q, i) => ({
+      index: i,
+      answered: (this.data.selected[i] || []).length > 0
+    }));
+    this.setData({ cardItems, showCard: true });
+  },
+
+  closeCard() {
+    this.setData({ showCard: false });
+  },
+
+  jumpTo(e) {
+    const index = e.currentTarget.dataset.index;
+    this.setData({ current: index, showCard: false }, () => {
+      this.refresh();
+      this.scrollToTop();
+    });
   }
 });

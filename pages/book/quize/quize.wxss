@@ -78,3 +78,93 @@
 .option-hint {
   line-height: 1.4;
 }
+
+/* 悬浮答题卡按钮 */
+.answer-fab {
+  position: fixed;
+  z-index: 900;
+  width: 100rpx;
+  height: 100rpx;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.1;
+}
+
+.answer-fab .cuIcon-list {
+  font-size: 40rpx;
+}
+
+.answer-fab-anim {
+  transition: left 0.2s ease, top 0.2s ease;
+}
+
+/* 悬浮查看结果按钮：右侧垂直居中 */
+.result-fab {
+  position: fixed;
+  right: 24rpx;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 900;
+  width: 120rpx;
+  height: 120rpx;
+  border-radius: 50%;
+  color: #fff;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.2;
+}
+
+.result-fab .cuIcon-medal {
+  font-size: 44rpx;
+}
+
+/* 答题卡网格 */
+.answer-grid {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.answer-cell {
+  width: 80rpx;
+  height: 80rpx;
+  line-height: 80rpx;
+  text-align: center;
+  border-radius: 12rpx;
+  margin: 0 20rpx 20rpx 0;
+  font-weight: bold;
+}
+
+.answer-cell.answered {
+  background-color: #39b54a;
+  color: #fff;
+}
+
+.answer-cell.unanswered {
+  background-color: #f1f1f1;
+  color: #999;
+}
+
+.answer-cell.current {
+  box-shadow: 0 0 0 4rpx #0081ff;
+}
+
+.legend-dot {
+  width: 24rpx;
+  height: 24rpx;
+  border-radius: 6rpx;
+  margin-right: 10rpx;
+}
+
+.legend-dot.answered {
+  background-color: #39b54a;
+}
+
+.legend-dot.unanswered {
+  background-color: #f1f1f1;
+}

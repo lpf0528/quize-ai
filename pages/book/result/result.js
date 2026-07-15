@@ -13,6 +13,7 @@ Page({
     unanswered: 0,
     rate: 0,        // 正确率百分比
     level: '',      // 评价文案
+    timeText: '00:00', // 用时展示文本
     ec: { lazyLoad: true }
   },
 
@@ -30,6 +31,7 @@ Page({
     let wrong = Math.min(Math.max(num(options.wrong, 1), 0), total - correct);
     const unanswered = Math.max(total - correct - wrong, 0);
     const rate = total > 0 ? Math.round((correct / total) * 100) : 0;
+    const elapsed = Math.max(num(options.elapsed, 0), 0);
 
     this.setData({
       total,
@@ -37,8 +39,16 @@ Page({
       wrong,
       unanswered,
       rate,
-      level: this.getLevel(rate)
+      level: this.getLevel(rate),
+      timeText: this.formatTime(elapsed)
     });
+  },
+
+  // 秒数格式化为 mm:ss
+  formatTime(s) {
+    const m = Math.floor(s / 60);
+    const sec = s % 60;
+    return (m < 10 ? '0' + m : m) + ':' + (sec < 10 ? '0' + sec : sec);
   },
 
   onReady() {
