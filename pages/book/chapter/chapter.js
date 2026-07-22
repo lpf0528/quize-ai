@@ -6,31 +6,35 @@ Page({
    */
   data: {
 
-    newsList: [{
-      "title": "抖音的增长烦恼：用户并不是越多越好",
-      "user": "混沌大学",
-      "date": "2019-05-12",
-      "collection": 97,
-      "url": "https://image.meiye.art/Fha6tqRTIwHtlLW3xuZBJj8ZXSX3?imageMogr2/thumbnail/450x/interlace/1"
+    swiperList: [{
+      id: 0,
+      type: 'image',
+      url: '../../../images/chapter/chapter-0.jpg'
     }, {
-      "title": "每天忙成狗却赚钱一丢丢，这是中产阶级吗？",
-      "user": "造就",
-      "date": "2019-05-12",
-      "collection": 21,
-      "url": "https://image.meiye.art/FhHGe9NyO0uddb6D4203jevC_gzc?imageMogr2/thumbnail/450x/interlace/1"
+      id: 1,
+      type: 'image',
+      url: '../../../images/chapter/chapter-0.jpg'
     }, {
-      "title": "对话爱奇艺创始人、CEO龚宇：付费会员还有极大的想象空间",
-      "user": "毒眸",
-      "date": "2019-05-12",
-      "collection": 17,
-      "url": "https://image.meiye.art/FlqKg5bugFQD5Qzm_QhGM7ET4Mtx?imageMogr2/thumbnail/450x/interlace/1"
+      id: 2,
+      type: 'image',
+      url: '../../../images/chapter/chapter-0.jpg'
     }, {
-      "title": "百度如何成为小程序生态的最大变量？",
-      "user": "罗超频道",
-      "date": "2019-05-12",
-      "collection": 23,
-      "url": "https://image.meiye.art/Fha6tqRTIwHtlLW3xuZBJj8ZXSX3?imageMogr2/thumbnail/450x/interlace/1"
-    }, ]
+      id: 3,
+      type: 'image',
+      url: '../../../images/chapter/chapter-0.jpg'
+    }, {
+      id: 4,
+      type: 'image',
+      url: '../../../images/chapter/chapter-0.jpg'
+    }, {
+      id: 5,
+      type: 'image',
+      url: '../../../images/chapter/chapter-0.jpg'
+    }, {
+      id: 6,
+      type: 'image',
+      url: '../../../images/chapter/chapter-0.jpg'
+    }],
   },
 
   /**

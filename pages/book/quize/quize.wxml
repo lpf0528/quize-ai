@@ -16,11 +16,11 @@
         <text class="cuIcon-time margin-right-xs"></text>{{timeText}}
       </view>
     </view>
-    <view class="bg-white padding-lr">
+    <!-- <view class="bg-white padding-lr">
       <view class="cu-progress round sm">
         <view class="bg-blue" style="width:{{answeredCount / total * 100}}%;"></view>
       </view>
-    </view>
+    </view> -->
     <!-- 题干 -->
     <view class="bg-white padding solid-bottom">
       <view class="flex align-center justify-between">
@@ -79,14 +79,21 @@
 
 <!-- 悬浮答题卡按钮：可拖动 -->
 <view
-  class="answer-fab bg-gradual-blue shadow-lg {{fabDragging ? '' : 'answer-fab-anim'}}"
+  class="answer-fab shadow-lg {{fabDragging ? '' : 'answer-fab-anim'}}"
   style="left:{{fabX}}px; top:{{fabY}}px;"
   catchtouchstart="onFabTouchStart"
   catchtouchmove="onFabTouchMove"
   catchtouchend="onFabTouchEnd"
 >
-  <text class="cuIcon-list"></text>
-  <view class="text-xs">答题卡</view>
+  <!-- 水位层：高度随已作答进度上升 -->
+  <view class="fab-water" style="height:{{answeredCount / total * 100}}%;">
+    <view class="fab-wave"></view>
+    <view class="fab-wave fab-wave-2"></view>
+  </view>
+  <view class="fab-content">
+    <text class="cuIcon-list"></text>
+    <view class="text-xs">{{answeredCount}}/{{total}}</view>
+  </view>
 </view>
 
 <!-- 答题卡弹窗 -->
@@ -103,18 +110,31 @@
         <view
           wx:for="{{cardItems}}"
           wx:key="index"
-          class="answer-cell {{item.answered ? 'answered' : 'unanswered'}} {{item.index == current ? 'current' : ''}}"
+          class="answer-cell cell-{{item.status}} {{item.index == current ? 'current' : ''}}"
           bindtap="jumpTo"
           data-index="{{item.index}}"
         >{{item.index + 1}}</view>
       </view>
-      <view class="flex justify-center align-center margin-top text-sm text-grey">
-        <view class="flex align-center margin-right">
-          <view class="legend-dot answered"></view>已作答
+      <view class="flex flex-wrap justify-center align-center margin-top text-sm text-grey">
+        <view class="flex align-center margin-right margin-bottom-xs">
+          <view class="legend-dot cell-none"></view>未选择
         </view>
-        <view class="flex align-center">
-          <view class="legend-dot unanswered"></view>未作答
+        <view class="flex align-center margin-right margin-bottom-xs">
+          <view class="legend-dot cell-selected"></view>已选择
         </view>
+        <view class="flex align-center margin-right margin-bottom-xs">
+          <view class="legend-dot cell-right"></view>正确
+        </view>
+        <view class="flex align-center margin-bottom-xs">
+          <view class="legend-dot cell-wrong"></view>错误
+        </view>
+      </view>
+
+      <!-- 全部选择完成后：一键提交 -->
+      <view wx:if="{{answeredCount == total && !allSubmitted}}" class="margin-top">
+        <button class="cu-btn bg-blue lg block shadow radius" bindtap="submitAll">
+          <text class="cuIcon-check margin-right-xs"></text>一键提交
+        </button>
       </view>
     </view>
   </view>

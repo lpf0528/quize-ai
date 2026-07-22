@@ -1,9 +1,7 @@
-<scroll-view scroll-y class="cu-drawer-page {{modalName=='viewModal'?'show':''}}">
-  <cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
+<cu-custom bgColor="bg-gradual-blue" isBack="{{true}}">
     <view slot="content">全屏抽屉</view>
   </cu-custom>
-
-
+<scroll-view scroll-y class="cu-drawer-page {{modalName=='viewModal'?'show':''}}">
   <view class="">
     <view class="bg-white radius-lg" style="min-height: 90vh;">
       <view class="flex margin-lr-sm padding-tb justify-start">
@@ -14,7 +12,7 @@
             <view class="cu-avatar round bg-black">書</view>
           </view> -->
           <view class="text-left margin-top-sm">
-            <text class="text-xl text-black text-bold">基于大模型的 RAG 应用开发与优化 : 构建企业级 LLM 应用</text>
+            <text class="text-xl text-black text-bold">基于大模型的RAG应用开发与优化——构建企业级LLM应用</text>
           </view>
           <view class="text-left margin-top-xs">
             <text class="text-black">严灿平著. -- 北京 : 电子工业出版社, 2024.</text>
@@ -42,7 +40,8 @@
           <view class="cu-avatar round lg bg-white">
             <text class="cuIcon-card"></text>
           </view>
-          <view class="content" bind:tap="toPage" data-url="/pages/book/article/article">            <view class="text-grey">RAG架构演进与知识增强核心范式</view>
+          <view class="content" bind:tap="toPage" data-url="/pages/book/article/article">
+            <view class="text-grey">RAG架构演进与知识增强核心范式</view>
             <view class="text-gray text-sm flex">
               <text class="text-cut">
                 <text class="cuIcon-time margin-right-xs"></text> 2026-06-06
@@ -58,7 +57,8 @@
           <view class="cu-avatar round lg bg-white">
             <text class="cuIcon-form"></text>
           </view>
-          <view class="content" bind:tap="toPage" data-url="/pages/book/quize/quize">            <view class="text-grey">RAG技术测验</view>
+          <view class="content" bind:tap="toPage" data-url="/pages/book/quize/quize">
+            <view class="text-grey">RAG技术测验</view>
             <view class="text-gray text-sm flex">
               <text class="text-cut">
                 <text class="cuIcon-time margin-right-xs"></text> 2026-06-06
@@ -74,8 +74,8 @@
           <view class="cu-avatar round lg bg-white">
             <text class="cuIcon-form"></text>
           </view>
-          <view class="content" bind:tap="toPage" data-url="/pages/book/flashcards/flashcards">            
-          <view class="text-grey">闪卡</view>
+          <view class="content" bind:tap="toPage" data-url="/pages/book/flashcards/flashcards">
+            <view class="text-grey">闪卡</view>
             <view class="text-gray text-sm flex">
               <text class="text-cut">
                 <text class="cuIcon-time margin-right-xs"></text> 2026-06-06
@@ -90,7 +90,7 @@
       </view>
       <view class='padding margin text-center'>
         <view class='cu-btn bg-blue lg block shadow radius margin-xl' bindtap="showModal" data-target="viewModal">
-          打开抽屉
+          查看目录
         </view>
       </view>
     </view>

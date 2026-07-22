@@ -46,16 +46,16 @@
     <view class="flex margin-lr-sm padding-tb justify-start">
       <view class="bg-img radius margin-lr-xs" style="background-image: url('https://image.meiye.art/pic_CYD_28h6ew2rYJFmR9Neh?imageMogr2/thumbnail/450x/interlace/1');height: 220rpx; width: 160rpx;">
       </view>
-      <view class="text-black margin-left-sm" style="width: 420rpx;">
+      <view class="text-black margin-left-sm" style="width: 420rpx;" bind:tap="toPage" data-url="/pages/book/book">
         <view class="text-left margin-top-sm">
-          <text class="text-lg text-black text-bold">《心智与阅读》有声书</text>
+          <text class="text-lg text-black text-bold">基于大模型的RAG应用开发与优化——构建企业级LLM应用</text>
         </view>
         <view class="text-left margin-top-xs">
-          <text class="text-black">著名教育与心理学家教你如何提升阅读能力</text>
+          <text class="text-black" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">严灿平著. -- 北京 : 电子工业出版社, 2024.</text>
         </view>
-        <view class="text-left margin-top-sm">
+        <!-- <view class="text-left margin-top-sm">
           <text class="text-black">49.99点/会员价 29.99点</text>
-        </view>
+        </view> -->
       </view>
       <view class="margin-left-sm text-xl flex justify-center align-center" style="width: 40rpx;">
         <view class="cuIcon-right"></view>
@@ -67,38 +67,18 @@
       </view>
       <view class="text-black margin-left-sm" style="width: 420rpx;">
         <view class="text-left margin-top-sm">
-          <text class="text-lg text-black text-bold">《几度成功》有声书</text>
+          <text class="text-lg text-black text-bold">DeerFlow - 2.0</text>
         </view>
         <view class="text-left margin-top-xs">
-          <text class="text-black">科学研究揭示高绩效团队的3个终极密码</text>
+          <text class="text-black" style="display: -webkit-box; -webkit-box-orient: vertical; -webkit-line-clamp: 2; overflow: hidden;">DeerFlow（Deep Exploration and Efficient Research Flow）是一个开源的 super agent harness。它把 sub-agents、memory 和 sandbox 组织在一起，再配合可扩展的 skills，让 agent 可以完成几乎任何事情。</text>
         </view>
-        <view class="text-left margin-top-sm">
+        <!-- <view class="text-left margin-top-sm">
           <text class="text-black">49.99点/会员价 29.99点</text>
-        </view>
+        </view> -->
       </view>
       <view class="margin-left-sm text-xl flex justify-center align-center" style="width: 40rpx;">
         <view class="cuIcon-right"></view>
       </view>
     </view>
-
-    <view class="flex margin-lr-sm padding-tb justify-start">
-      <view class="bg-img radius margin-lr-xs" style="background-image: url('https://image.meiye.art/pic_1uwlbRtyrU6opIfZs69-O?imageMogr2/thumbnail/450x/interlace/1');height: 220rpx; width: 160rpx;">
-      </view>
-      <view class="text-black margin-left-sm" style="width: 420rpx;">
-        <view class="text-left margin-top-sm">
-          <text class="text-lg text-black text-bold">《打造最优工作节奏》有声书</text>
-        </view>
-        <view class="text-left margin-top-xs">
-          <text class="text-black">利用大脑天行高效工作</text>
-        </view>
-        <view class="text-left margin-top-sm">
-          <text class="text-black">49.99点/会员价 29.99点</text>
-        </view>
-      </view>
-      <view class="margin-left-sm text-xl flex justify-center align-center" style="width: 40rpx;">
-        <view class="cuIcon-right"></view>
-      </view>
-    </view>
-
   </view>
 </view>

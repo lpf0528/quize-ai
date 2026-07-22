@@ -2,29 +2,58 @@
 <cu-custom bgColor="bg-white" isBack="{{true}}">
   <view slot="content">音乐播放01模板</view>
 </cu-custom>
-
-<view class="scrollPage margin-xs radius-lg">
-  <view class="radius-lg">
-    <view class="bg-white padding-bottom radius-xl">
-      <view style="padding-top:10rpx">
-        <view class="padding margin-lr margin-top-lg">
-          <view class="flex">
-            <view class="text-black padding-right-xs">1:20</view>
-            <view class="cu-progress round margin-top-xs xs">
-              <view class="bg-grey" style="width:25%;"></view>
-            </view>
-            <view class="text-black padding-left-xs">5:00</view>
-          </view>
-        </view>
-        <view class="margin-top">
-          <view class="flex justify-center">
-            <view class="margin-right text-xxxl text-black flex align-center"><text class="cuIcon-backwardfill"></text></view>
-            <view class="cu-avatar lg round margin-lr-xl bg-oc-gray-9"><text class="cuIcon-playfill text-brown"></text></view>
-            <view class="margin-left text-xxxl text-black flex align-center"><text class="cuIcon-play_forward_fill"></text></view>
-          </view>
-        </view>
+<view class="bg-white">
+  <view class="cu-list menu-avatar">
+  <view class="cu-item">
+    <view class="cu-avatar round lg bg-white">
+      <text class="cuIcon-card"></text>
+    </view>
+    <view class="content" bind:tap="toPage" data-url="/pages/book/article/article">
+      <view class="text-grey">RAG架构演进与知识增强核心范式</view>
+      <view class="text-gray text-sm flex">
+        <text class="text-cut">
+          <text class="cuIcon-time margin-right-xs"></text> 2026-06-06
+        </text>
       </view>
     </view>
+    <view class="action">
+      <view class="text-grey text-xs">22:20</view>
+      <view class="cu-tag round bg-grey sm">5</view>
+    </view>
   </view>
-
+  <view class="cu-item">
+    <view class="cu-avatar round lg bg-white">
+      <text class="cuIcon-form"></text>
+    </view>
+    <view class="content" bind:tap="toPage" data-url="/pages/book/quize/quize">
+      <view class="text-grey">RAG技术测验</view>
+      <view class="text-gray text-sm flex">
+        <text class="text-cut">
+          <text class="cuIcon-time margin-right-xs"></text> 2026-06-06
+        </text>
+      </view>
+    </view>
+    <view class="action">
+      <view class="text-grey text-xs">22:20</view>
+      <view class="cu-tag round bg-grey sm">5</view>
+    </view>
+  </view>
+  <view class="cu-item">
+    <view class="cu-avatar round lg bg-white">
+      <text class="cuIcon-form"></text>
+    </view>
+    <view class="content" bind:tap="toPage" data-url="/pages/book/flashcards/flashcards">
+      <view class="text-grey">闪卡</view>
+      <view class="text-gray text-sm flex">
+        <text class="text-cut">
+          <text class="cuIcon-time margin-right-xs"></text> 2026-06-06
+        </text>
+      </view>
+    </view>
+    <view class="action">
+      <view class="text-grey text-xs">22:20</view>
+      <view class="cu-tag round bg-grey sm">5</view>
+    </view>
+  </view>
+</view>
 </view>

@@ -44,5 +44,10 @@ Page({
       TabCur: e.currentTarget.dataset.id,
       scrollLeft: (e.currentTarget.dataset.id - 1) * 60
     })
-  }
+  },
+  toPage(e) {
+    wx.navigateTo({
+      url: e.currentTarget.dataset.url
+    })
+  },
 })

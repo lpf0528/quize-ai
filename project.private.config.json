@@ -23,11 +23,18 @@
     "miniprogram": {
       "list": [
         {
-          "name": "pages/book/quize/quize",
-          "pathName": "pages/book/quize/quize",
+          "name": "pages/index/index",
+          "pathName": "pages/index/index",
           "query": "",
           "scene": null,
           "launchMode": "default"
+        },
+        {
+          "name": "pages/book/quize/quize",
+          "pathName": "pages/book/quize/quize",
+          "query": "",
+          "launchMode": "default",
+          "scene": null
         },
         {
           "name": "pages/book/result/result",

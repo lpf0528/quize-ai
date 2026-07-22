@@ -1,11 +1,12 @@
 {
   "pages": [
+    "pages/index/index",
     "pages/book/book",
     "pages/book/article/article",
     "pages/book/quize/quize",
     "pages/book/result/result",
     "pages/book/flashcards/flashcards",
-    "pages/index/index",
+
     "pages/book/toc/toc",
     "pages/book/chapter/chapter",
     "pages/logs/logs"
@@ -17,10 +18,7 @@
     "cu-custom":"/colorui/components/cu-custom/cu-custom"
   },
   "tabBar": {
-    "list": [{
-      "pagePath": "pages/book/book",
-      "text": "book"
-    }, {
+    "list": [ {
       "pagePath": "pages/index/index",
       "text": "首页"
     },{

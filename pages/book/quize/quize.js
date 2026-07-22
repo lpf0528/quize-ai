@@ -315,15 +315,31 @@ Page({
 
   // ===== 答题卡弹窗 =====
   openCard() {
-    const cardItems = QUESTIONS.map((q, i) => ({
-      index: i,
-      answered: (this.data.selected[i] || []).length > 0
-    }));
+    const { selected, submitted } = this.data;
+    const cardItems = QUESTIONS.map((q, i) => {
+      const picked = selected[i] || [];
+      let status = 'none'; // none 未选 | selected 已选未提交 | right 正确 | wrong 错误
+      if (submitted[i]) {
+        status = this.isRight(i) ? 'right' : 'wrong';
+      } else if (picked.length > 0) {
+        status = 'selected';
+      }
+      return { index: i, status };
+    });
     this.setData({ cardItems, showCard: true });
   },
 
   closeCard() {
     this.setData({ showCard: false });
+  },
+
+  // 一键提交所有已选择题目
+  submitAll() {
+    const submitted = this.data.selected.map(s => (s || []).length > 0);
+    this.setData({ submitted }, () => {
+      this.refresh();
+      this.openCard(); // 重建答题卡状态（正确/错误配色）
+    });
   },
 
   jumpTo(e) {
